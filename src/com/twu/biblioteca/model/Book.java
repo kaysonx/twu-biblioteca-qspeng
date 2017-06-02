@@ -49,7 +49,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Author:'" + Author + ", Published:'" + Published + ", Name:'" + Name;
+        return "Author:" + Author + ", Published:" + Published + ", Name:" + Name;
     }
 }
 

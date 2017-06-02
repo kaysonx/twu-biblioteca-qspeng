@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 
 public class BibliotecaCore {
-
+    public static final String lineSeparator = new Properties(System.getProperties()).getProperty("line.separator");
     private List<Book> bookList;
     private List<String> mainMenu;
 
@@ -21,7 +21,7 @@ public class BibliotecaCore {
         bookList = new ArrayList<Book>();
         bookList.add(new Book("jlan,jiang", "2014.08", "ASP.NET MVC"));
         bookList.add(new Book("Keith,J", "2011.04", "JavaScript DOM"));
-        bookList.add(new Book("dbo,lin", "2013.12", " HTML5+CSS3"));
+        bookList.add(new Book("dbo,lin", "2013.12", "HTML5+CSS3"));
         bookList.add(new Book("qsepng", "2017.06", "testBook"));
 
         mainMenu = new ArrayList<String>();
@@ -46,11 +46,10 @@ public class BibliotecaCore {
     }
 
     public String order(String order) {
-        Map<String, Object> orderMap = new HashMap<>();
         switch (order) {
             case "0":
                 this.state = State.LISTBOOK;
-                return getFormatListBooks();
+                return getFormatListBooks() + lineSeparator + getFormatTheMenu();
             case "1":
                 this.state = State.CHECKOUT;
                 return "Please input the book name to checkout:";
@@ -68,10 +67,18 @@ public class BibliotecaCore {
 
     public String handleUserInput(String userInput) {
         if (state == State.CHECKOUT) {
-            return checkout(userInput);
+            String checkoutMessage = checkout(userInput);
+            if (state == State.MAIN) {
+                checkoutMessage = checkoutMessage + lineSeparator + getFormatTheMenu();
+            }
+            return checkoutMessage;
         }
         if (state == State.RETURN) {
-            return returnBook(userInput);
+            String returnBookMessage = returnBook(userInput);
+            if (state == State.MAIN) {
+                returnBookMessage = returnBookMessage + lineSeparator + getFormatTheMenu();
+            }
+            return returnBookMessage;
         }
         return order(userInput);
     }
@@ -102,6 +109,19 @@ public class BibliotecaCore {
 
     public String getFormatListBooks() {
         List<Book> bookList = getListBooks();
-        return bookList.stream().map(book -> book.toString()).collect(Collectors.joining("\n\r"));
+        return bookList.stream().map(book -> book.toString()).collect(Collectors.joining(lineSeparator));
+    }
+
+    private String getFormatTheMenu() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < mainMenu.size(); i++) {
+            stringBuilder.append(i + "." + mainMenu.get(i));
+            stringBuilder.append(lineSeparator);
+        }
+        return stringBuilder.toString();
+    }
+
+    public String run() {
+        return getWelcomeMessage() + lineSeparator + getFormatTheMenu();
     }
 }
