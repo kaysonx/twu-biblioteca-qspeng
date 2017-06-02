@@ -72,4 +72,11 @@ public class BibliotecaTest {
         String checkoutMessage = bibliotecaCore.checkout(bookName);
         assertEquals(checkoutMessage, "Thank you! Enjoy the book");
     }
+
+    @Test
+    public void should_get_checkout_failed_message(){
+        String bookName = "Error Book";
+        String checkoutMessage = bibliotecaCore.checkout(bookName);
+        assertEquals(checkoutMessage, "That book is not available");
+    }
 }
