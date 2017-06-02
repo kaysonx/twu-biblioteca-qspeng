@@ -11,17 +11,15 @@ public class BibliotecaApp {
         System.out.println(formatTheMenu(bibliotecaCore.getMenu()));
         System.out.println("Please enter your option:");
         Scanner scanner = new Scanner(System.in);
-        State state = State.ORDER;
-        while (true){
-            String userInput = scanner.next();
-            if(state == State.ORDER){
-                int order = Integer.parseInt(userInput);
-//                System.out.println(bibliotecaCore.order(order));
-            }else{
-
-            }
-
-        }
+//        while (true){
+//            String userInput = scanner.next();
+//            if(state == State.ORDER){
+//                int order = Integer.parseInt(userInput);
+//            }else{
+//
+//            }
+//
+//        }
     }
 
     private static String formatTheMenu(List<String> menu){
@@ -33,8 +31,5 @@ public class BibliotecaApp {
         return stringBuilder.toString();
     }
 
-    private  enum State{
-        ORDER,
-        ACTION
-    }
+
 }

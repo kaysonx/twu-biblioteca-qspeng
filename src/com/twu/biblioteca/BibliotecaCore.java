@@ -10,6 +10,7 @@ public class BibliotecaCore {
 
     private List<Book> bookList;
     private List<String> mainMenu;
+    private State state;
 
     public BibliotecaCore() {
         bookList = new ArrayList<Book>();
@@ -23,6 +24,8 @@ public class BibliotecaCore {
         mainMenu.add("Checkout Book");
         mainMenu.add("Return Book");
         mainMenu.add("Quit");
+
+        state = State.MAIN;
     }
 
     public String getWelcomeMessage() {
@@ -43,17 +46,23 @@ public class BibliotecaCore {
         switch (order) {
             case "0":
                 orderMap.put("message", getListBooks());
+                this.state = State.LISTBOOK;
                 break;
             case "1":
                 orderMap.put("message", "Please input the book name to checkout:");
+                this.state = State.CHECKOUT;
                 break;
             case "2":
                 orderMap.put("message", "Please input the book name to return:");
+                this.state = State.RETURN;
                 break;
             case "3":
+                orderMap.put("message", "bye!");
+                this.state = State.QUIT;
                 break;
             default:
                 orderMap.put("message", "Select a valid option!");
+                this.state = State.MAIN;
                 break;
         }
         return orderMap;
