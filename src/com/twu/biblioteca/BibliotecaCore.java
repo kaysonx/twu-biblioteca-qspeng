@@ -9,6 +9,7 @@ import java.util.List;
 public class BibliotecaCore {
 
     private List<Book> bookList;
+    private List<String> mainMenu;
 
     public BibliotecaCore() {
         bookList = new ArrayList<Book>();
@@ -16,6 +17,9 @@ public class BibliotecaCore {
         bookList.add(new Book("Keith,J","2011.04","JavaScript DOM"));
         bookList.add(new Book("dbo,lin","2013.12"," HTML5+CSS3"));
         bookList.add(new Book("qsepng","2017.06","testBook"));
+
+        mainMenu = new ArrayList<String>();
+        mainMenu.add("List Books");
     }
 
     public String getWelcomeMessage() {
@@ -27,6 +31,6 @@ public class BibliotecaCore {
     }
 
     public List<String> getMenu() {
-        return null;
+        return mainMenu;
     }
 }
