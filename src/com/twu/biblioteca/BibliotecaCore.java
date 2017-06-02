@@ -2,10 +2,7 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.model.Book;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -23,6 +20,8 @@ public class BibliotecaCore {
 
         mainMenu = new ArrayList<String>();
         mainMenu.add("List Books");
+        mainMenu.add("Checkout Book");
+        mainMenu.add("Return Book");
         mainMenu.add("Quit");
     }
 
@@ -38,15 +37,26 @@ public class BibliotecaCore {
         return mainMenu;
     }
 
-    public List<String> order(int order) {
-        List<String> orderMessage = new ArrayList<>();
-        try {
-            mainMenu.get(order - 1);
-        } catch (Exception ex) {
-            orderMessage.add("Select a valid option!");
-            return orderMessage;
+    public Map<String, Object> order(String order) {
+        Map<String, Object> orderMap = new HashMap<>();
+
+        switch (order) {
+            case "0":
+                orderMap.put("message", getListBooks());
+                break;
+            case "1":
+                orderMap.put("message", "Please input the book name to checkout:");
+                break;
+            case "2":
+                orderMap.put("message", "Please input the book name to return:");
+                break;
+            case "3":
+                break;
+            default:
+                orderMap.put("message", "Select a valid option!");
+                break;
         }
-        return orderMessage;
+        return orderMap;
     }
 
     public String checkout(final String bookName) {
