@@ -7,9 +7,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class BibliotecaTest {
     BibliotecaCore bibliotecaCore;
@@ -57,5 +55,15 @@ public class BibliotecaTest {
         List<String> menuItems = bibliotecaCore.getMenu();
         assertNotNull(menuItems);
         assertTrue(menuItems.contains("Quit"));
+    }
+
+    @Test
+    public void should_checkout(){
+        int sourceBooksCount = bibliotecaCore.getListBooks().size();
+        String bookName = "ASP.NET MVC";
+        bibliotecaCore.checkout(bookName);
+        assertEquals(sourceBooksCount - 1,bibliotecaCore.getListBooks().size());
+        assertFalse(bibliotecaCore.getListBooks().contains(bookName));
+
     }
 }

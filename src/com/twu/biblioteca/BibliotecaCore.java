@@ -46,4 +46,8 @@ public class BibliotecaCore {
         }
         return orderMessage;
     }
+
+    public void checkout(String s) {
+
+    }
 }
