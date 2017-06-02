@@ -30,4 +30,11 @@ public class BibliotecaTest {
         assertNotNull(bookList);
         assertTrue(bookList.size() > 0);
     }
+
+    @Test
+    public void should_get_book_details(){
+        List<Book> bookList = bibliotecaCore.getListBooks();
+        assertNotNull(bookList.get(0).getAuthor());
+        assertNotNull(bookList.get(0).getPublished());
+    }
 }
