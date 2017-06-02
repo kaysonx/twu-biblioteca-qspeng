@@ -79,4 +79,13 @@ public class BibliotecaTest {
         String checkoutMessage = bibliotecaCore.checkout(bookName);
         assertEquals(checkoutMessage, "That book is not available");
     }
+
+    @Test
+    public void should_return_book(){
+        int sourceBooksCount = bibliotecaCore.getListBooks().size();
+        String bookName = "Return Book";
+        bibliotecaCore.returnBook(bookName);
+        assertEquals(sourceBooksCount + 1,bibliotecaCore.getListBooks().size());
+        assertTrue(bibliotecaCore.getListBooks().contains(bookName));
+    }
 }
