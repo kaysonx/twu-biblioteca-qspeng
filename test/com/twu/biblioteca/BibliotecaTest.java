@@ -59,10 +59,8 @@ public class BibliotecaTest {
 
     @Test
     public void should_checkout(){
-        int sourceBooksCount = bibliotecaCore.getListBooks().size();
         String bookName = "ASP.NET MVC";
         bibliotecaCore.checkout(bookName);
-        assertEquals(sourceBooksCount - 1,bibliotecaCore.getListBooks().size());
         assertFalse(bibliotecaCore.getListBooks().contains(bookName));
     }
 
@@ -82,10 +80,8 @@ public class BibliotecaTest {
 
     @Test
     public void should_return_book(){
-        int sourceBooksCount = bibliotecaCore.getListBooks().size();
         String bookName = "Return Book";
         bibliotecaCore.returnBook(bookName);
-        assertEquals(sourceBooksCount + 1,bibliotecaCore.getListBooks().size());
         assertTrue(bibliotecaCore.getListBooks().contains(bookName));
     }
 }

@@ -6,6 +6,15 @@ public class Book {
     private String Author;
     private String Published;
     private String Name;
+    private boolean isCheckout;
+
+    public boolean isCheckout() {
+        return isCheckout;
+    }
+
+    public void setCheckout(boolean checkout) {
+        isCheckout = checkout;
+    }
 
     public String getAuthor() {
         return Author;
@@ -35,6 +44,7 @@ public class Book {
         Author = author;
         Published = published;
         Name = name;
+        isCheckout = false;
     }
 }
 

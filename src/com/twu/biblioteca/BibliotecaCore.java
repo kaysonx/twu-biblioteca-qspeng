@@ -5,6 +5,7 @@ import com.twu.biblioteca.model.Book;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -30,7 +31,7 @@ public class BibliotecaCore {
     }
 
     public List<Book> getListBooks() {
-        return bookList;
+        return bookList.stream().filter(book -> !book.isCheckout()).collect(Collectors.toList());
     }
 
     public List<String> getMenu() {
@@ -49,14 +50,20 @@ public class BibliotecaCore {
     }
 
     public String checkout(final String bookName) {
-        boolean searchResult = bookList.stream().anyMatch(book -> book.getName().equals(bookName));
-        if (searchResult) {
-            bookList = bookList.stream().filter(book -> !book.getName().equals(bookName)).collect(Collectors.<Book>toList());
+//        boolean searchResult = bookList.stream().anyMatch(book -> book.getName().equals(bookName));
+        Optional<Book> findBook = bookList.stream().filter(book -> book.getName().equals(bookName)).findFirst();
+        if(findBook.isPresent()){
+            findBook.get().setCheckout(true);
             return "Thank you! Enjoy the book";
         }
+//        if (searchResult) {
+//            bookList = bookList.stream().filter(book -> !book.getName().equals(bookName)).collect(Collectors.<Book>toList());
+//            return "Thank you! Enjoy the book";
+//        }
         return "That book is not available";
     }
 
     public void returnBook(String bookName) {
+
     }
 }
