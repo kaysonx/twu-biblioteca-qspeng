@@ -21,6 +21,7 @@ public class BibliotecaCore {
 
         mainMenu = new ArrayList<String>();
         mainMenu.add("List Books");
+        mainMenu.add("Quit");
     }
 
     public String getWelcomeMessage() {
@@ -37,7 +38,9 @@ public class BibliotecaCore {
 
     public List<String> order(int order) {
         List<String> orderMessage = new ArrayList<String>();
-        if (mainMenu.size() < order) {
+        try {
+            mainMenu.get(order - 1);
+        } catch (Exception ex) {
             orderMessage.add("Select a valid option!");
             return orderMessage;
         }

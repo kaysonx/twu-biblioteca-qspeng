@@ -47,8 +47,15 @@ public class BibliotecaTest {
 
     @Test
     public void should_get_invalid_menu_option_when_invalid_order(){
-        List<String> orderMessage = bibliotecaCore.order(2);
+        List<String> orderMessage = bibliotecaCore.order(-1);
         assertEquals(orderMessage.size(),1);
         assertTrue(orderMessage.get(0).equals("Select a valid option!"));
+    }
+
+    @Test
+    public void should_have_quit_option(){
+        List<String> menuItems = bibliotecaCore.getMenu();
+        assertNotNull(menuItems);
+        assertTrue(menuItems.contains("Quit"));
     }
 }
