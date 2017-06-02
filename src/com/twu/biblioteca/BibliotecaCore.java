@@ -62,6 +62,7 @@ public class BibliotecaCore {
         Optional<Book> findBook = bookList.stream().filter(book -> book.getName().equals(bookName)).findFirst();
         if (findBook.isPresent()) {
             findBook.get().setCheckout(false);
+            return "Thank you for returning the book";
         }
         return null;
     }
