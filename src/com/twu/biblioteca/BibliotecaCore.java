@@ -5,6 +5,6 @@ package com.twu.biblioteca;
  */
 public class BibliotecaCore {
     public String getWelcomeMessage() {
-        return null;
+        return "Welcome to the Bibliteca!";
     }
 }
