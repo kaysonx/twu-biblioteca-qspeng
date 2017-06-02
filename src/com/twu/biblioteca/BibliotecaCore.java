@@ -58,11 +58,12 @@ public class BibliotecaCore {
         return "That book is not available";
     }
 
-    public void returnBook(String bookName) {
+    public String returnBook(String bookName) {
         Optional<Book> findBook = bookList.stream().filter(book -> book.getName().equals(bookName)).findFirst();
         if (findBook.isPresent()) {
             findBook.get().setCheckout(false);
         }
+        return null;
     }
 
     public boolean isExist(String bookName){

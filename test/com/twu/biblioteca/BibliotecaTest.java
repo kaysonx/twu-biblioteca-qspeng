@@ -85,4 +85,11 @@ public class BibliotecaTest {
         assertTrue(bibliotecaCore.isExist(bookName));
     }
 
+    @Test
+    public void should_get_successful_message_when_return_book_success(){
+        String bookName = "ASP.NET MVC";
+        String returnBookMessage = bibliotecaCore.returnBook(bookName);
+        assertEquals(returnBookMessage, "Thank you for returning the book");
+    }
+
 }
