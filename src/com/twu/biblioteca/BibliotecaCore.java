@@ -25,4 +25,8 @@ public class BibliotecaCore {
     public List<Book> getListBooks() {
         return bookList;
     }
+
+    public List<String> getMenu() {
+        return null;
+    }
 }

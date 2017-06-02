@@ -32,9 +32,16 @@ public class BibliotecaTest {
     }
 
     @Test
-    public void should_get_book_details(){
+    public void should_get_book_details() {
         List<Book> bookList = bibliotecaCore.getListBooks();
         assertNotNull(bookList.get(0).getAuthor());
         assertNotNull(bookList.get(0).getPublished());
+    }
+
+    @Test
+    public void shoud_get_menu(){
+        List<String> menuItems = bibliotecaCore.getMenu();
+        assertNotNull(menuItems);
+        assertTrue(menuItems.contains("List Books"));
     }
 }
