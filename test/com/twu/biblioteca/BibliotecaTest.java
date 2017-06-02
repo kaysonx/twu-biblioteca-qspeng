@@ -61,7 +61,7 @@ public class BibliotecaTest {
     public void should_checkout(){
         String bookName = "ASP.NET MVC";
         bibliotecaCore.checkout(bookName);
-        assertFalse(bibliotecaCore.getListBooks().contains(bookName));
+        assertFalse(bibliotecaCore.isExist(bookName));
     }
 
     @Test
@@ -80,8 +80,9 @@ public class BibliotecaTest {
 
     @Test
     public void should_return_book(){
-        String bookName = "Return Book";
+        String bookName = "ASP.NET MVC";
         bibliotecaCore.returnBook(bookName);
-        assertTrue(bibliotecaCore.getListBooks().contains(bookName));
+        assertTrue(bibliotecaCore.isExist(bookName));
     }
+
 }

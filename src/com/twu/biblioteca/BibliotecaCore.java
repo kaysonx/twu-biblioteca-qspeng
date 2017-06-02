@@ -39,7 +39,7 @@ public class BibliotecaCore {
     }
 
     public List<String> order(int order) {
-        List<String> orderMessage = new ArrayList<String>();
+        List<String> orderMessage = new ArrayList<>();
         try {
             mainMenu.get(order - 1);
         } catch (Exception ex) {
@@ -50,20 +50,22 @@ public class BibliotecaCore {
     }
 
     public String checkout(final String bookName) {
-//        boolean searchResult = bookList.stream().anyMatch(book -> book.getName().equals(bookName));
         Optional<Book> findBook = bookList.stream().filter(book -> book.getName().equals(bookName)).findFirst();
-        if(findBook.isPresent()){
+        if (findBook.isPresent()) {
             findBook.get().setCheckout(true);
             return "Thank you! Enjoy the book";
         }
-//        if (searchResult) {
-//            bookList = bookList.stream().filter(book -> !book.getName().equals(bookName)).collect(Collectors.<Book>toList());
-//            return "Thank you! Enjoy the book";
-//        }
         return "That book is not available";
     }
 
     public void returnBook(String bookName) {
+        Optional<Book> findBook = bookList.stream().filter(book -> book.getName().equals(bookName)).findFirst();
+        if (findBook.isPresent()) {
+            findBook.get().setCheckout(false);
+        }
+    }
 
+    public boolean isExist(String bookName){
+        return bookList.stream().anyMatch(book -> book.getName().equals(bookName) && !book.isCheckout());
     }
 }
