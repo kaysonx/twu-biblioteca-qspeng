@@ -92,4 +92,11 @@ public class BibliotecaTest {
         assertEquals(returnBookMessage, "Thank you for returning the book");
     }
 
+    @Test
+    public void should_get_failed_message_when_return_book_fail(){
+        String bookName = "ASP.NET";
+        String returnBookMessage = bibliotecaCore.returnBook(bookName);
+        assertEquals(returnBookMessage, "That is not a valid book to return");
+    }
+
 }
