@@ -10,6 +10,11 @@ public class BibliotecaCore {
 
     private List<Book> bookList;
     private List<String> mainMenu;
+
+    public State getState() {
+        return state;
+    }
+
     private State state;
 
     public BibliotecaCore() {
@@ -40,38 +45,42 @@ public class BibliotecaCore {
         return mainMenu;
     }
 
-    public Map<String, Object> order(String order) {
+    public String order(String order) {
         Map<String, Object> orderMap = new HashMap<>();
-
         switch (order) {
             case "0":
-                orderMap.put("message", getListBooks());
                 this.state = State.LISTBOOK;
-                break;
+                return getFormatListBooks();
             case "1":
-                orderMap.put("message", "Please input the book name to checkout:");
                 this.state = State.CHECKOUT;
-                break;
+                return "Please input the book name to checkout:";
             case "2":
-                orderMap.put("message", "Please input the book name to return:");
                 this.state = State.RETURN;
-                break;
+                return "Please input the book name to return:";
             case "3":
-                orderMap.put("message", "bye!");
                 this.state = State.QUIT;
-                break;
+                return "bye";
             default:
-                orderMap.put("message", "Select a valid option!");
                 this.state = State.MAIN;
-                break;
+                return "Select a valid option!";
         }
-        return orderMap;
+    }
+
+    public String handleUserInput(String userInput) {
+        if (state == State.CHECKOUT) {
+            return checkout(userInput);
+        }
+        if (state == State.RETURN) {
+            return returnBook(userInput);
+        }
+        return order(userInput);
     }
 
     public String checkout(final String bookName) {
         Optional<Book> findBook = bookList.stream().filter(book -> book.getName().equals(bookName)).findFirst();
         if (findBook.isPresent()) {
             findBook.get().setCheckout(true);
+            state = State.MAIN;
             return "Thank you! Enjoy the book";
         }
         return "That book is not available";
@@ -81,6 +90,7 @@ public class BibliotecaCore {
         Optional<Book> findBook = bookList.stream().filter(book -> book.getName().equals(bookName)).findFirst();
         if (findBook.isPresent()) {
             findBook.get().setCheckout(false);
+            state = State.MAIN;
             return "Thank you for returning the book";
         }
         return "That is not a valid book to return";
@@ -88,5 +98,10 @@ public class BibliotecaCore {
 
     public boolean isExist(String bookName) {
         return bookList.stream().anyMatch(book -> book.getName().equals(bookName) && !book.isCheckout());
+    }
+
+    public String getFormatListBooks() {
+        List<Book> bookList = getListBooks();
+        return bookList.stream().map(book -> book.toString()).collect(Collectors.joining("\n\r"));
     }
 }

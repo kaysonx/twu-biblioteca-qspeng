@@ -46,5 +46,10 @@ public class Book {
         Name = name;
         isCheckout = false;
     }
+
+    @Override
+    public String toString() {
+        return "Author:'" + Author + ", Published:'" + Published + ", Name:'" + Name;
+    }
 }
 

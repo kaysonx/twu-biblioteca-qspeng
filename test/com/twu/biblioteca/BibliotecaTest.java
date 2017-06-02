@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -46,8 +45,7 @@ public class BibliotecaTest {
 
     @Test
     public void should_get_invalid_menu_option_when_invalid_order() {
-        Map<String, Object> orderMap = bibliotecaCore.order("-1");
-        assertEquals(orderMap.get("message"), "Select a valid option!");
+        assertEquals(bibliotecaCore.order("-1"), "Select a valid option!");
     }
 
     @Test
