@@ -49,7 +49,11 @@ public class BibliotecaCore {
     }
 
     public String checkout(final String bookName) {
-        bookList = bookList.stream().filter(book -> !book.getName().equals(bookName)).collect(Collectors.<Book>toList());
+        boolean searchResult = bookList.stream().anyMatch(book -> book.getName().equals(bookName));
+        if (searchResult) {
+            bookList = bookList.stream().filter(book -> !book.getName().equals(bookName)).collect(Collectors.<Book>toList());
+            return "Thank you! Enjoy the book";
+        }
         return null;
     }
 }
