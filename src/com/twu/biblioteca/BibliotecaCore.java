@@ -33,4 +33,8 @@ public class BibliotecaCore {
     public List<String> getMenu() {
         return mainMenu;
     }
+
+    public List<String> order(int order) {
+        return null;
+    }
 }

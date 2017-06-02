@@ -39,9 +39,16 @@ public class BibliotecaTest {
     }
 
     @Test
-    public void shoud_get_menu(){
+    public void should_get_menu(){
         List<String> menuItems = bibliotecaCore.getMenu();
         assertNotNull(menuItems);
         assertTrue(menuItems.contains("List Books"));
+    }
+
+    @Test
+    public void should_get_invalid_menu_option_when_invalid_order(){
+        List<String> orderMessage = bibliotecaCore.order(2);
+        assertEquals(orderMessage.size(),1);
+        assertTrue(orderMessage.get(0).equals("Select a valid option!"));
     }
 }
