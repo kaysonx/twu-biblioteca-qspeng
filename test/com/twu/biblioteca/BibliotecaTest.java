@@ -65,4 +65,11 @@ public class BibliotecaTest {
         assertEquals(sourceBooksCount - 1,bibliotecaCore.getListBooks().size());
         assertFalse(bibliotecaCore.getListBooks().contains(bookName));
     }
+
+    @Test
+    public void should_get_checkout_success_message(){
+        String bookName = "ASP.NET MVC";
+        String checkoutMessage = bibliotecaCore.checkout(bookName);
+        assertEquals(checkoutMessage, "Thank you! Enjoy the book");
+    }
 }

@@ -48,7 +48,8 @@ public class BibliotecaCore {
         return orderMessage;
     }
 
-    public void checkout(final String bookName) {
+    public String checkout(final String bookName) {
         bookList = bookList.stream().filter(book -> !book.getName().equals(bookName)).collect(Collectors.<Book>toList());
+        return null;
     }
 }
