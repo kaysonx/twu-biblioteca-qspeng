@@ -5,6 +5,7 @@ import com.twu.biblioteca.model.Book;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class BibliotecaCore {
@@ -47,7 +48,7 @@ public class BibliotecaCore {
         return orderMessage;
     }
 
-    public void checkout(String s) {
-
+    public void checkout(final String bookName) {
+        bookList = bookList.stream().filter(book -> !book.getName().equals(bookName)).collect(Collectors.<Book>toList());
     }
 }

@@ -64,6 +64,5 @@ public class BibliotecaTest {
         bibliotecaCore.checkout(bookName);
         assertEquals(sourceBooksCount - 1,bibliotecaCore.getListBooks().size());
         assertFalse(bibliotecaCore.getListBooks().contains(bookName));
-
     }
 }
