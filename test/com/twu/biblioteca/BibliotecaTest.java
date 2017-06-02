@@ -37,63 +37,63 @@ public class BibliotecaTest {
     }
 
     @Test
-    public void should_get_menu(){
+    public void should_get_menu() {
         List<String> menuItems = bibliotecaCore.getMenu();
         assertNotNull(menuItems);
         assertTrue(menuItems.contains("List Books"));
     }
 
     @Test
-    public void should_get_invalid_menu_option_when_invalid_order(){
+    public void should_get_invalid_menu_option_when_invalid_order() {
         List<String> orderMessage = bibliotecaCore.order(-1);
-        assertEquals(orderMessage.size(),1);
+        assertEquals(orderMessage.size(), 1);
         assertTrue(orderMessage.get(0).equals("Select a valid option!"));
     }
 
     @Test
-    public void should_have_quit_option(){
+    public void should_have_quit_option() {
         List<String> menuItems = bibliotecaCore.getMenu();
         assertNotNull(menuItems);
         assertTrue(menuItems.contains("Quit"));
     }
 
     @Test
-    public void should_checkout(){
+    public void should_checkout() {
         String bookName = "ASP.NET MVC";
         bibliotecaCore.checkout(bookName);
         assertFalse(bibliotecaCore.isExist(bookName));
     }
 
     @Test
-    public void should_get_checkout_success_message(){
+    public void should_get_checkout_success_message() {
         String bookName = "ASP.NET MVC";
         String checkoutMessage = bibliotecaCore.checkout(bookName);
         assertEquals(checkoutMessage, "Thank you! Enjoy the book");
     }
 
     @Test
-    public void should_get_checkout_failed_message(){
+    public void should_get_checkout_failed_message() {
         String bookName = "Error Book";
         String checkoutMessage = bibliotecaCore.checkout(bookName);
         assertEquals(checkoutMessage, "That book is not available");
     }
 
     @Test
-    public void should_return_book(){
+    public void should_return_book() {
         String bookName = "ASP.NET MVC";
         bibliotecaCore.returnBook(bookName);
         assertTrue(bibliotecaCore.isExist(bookName));
     }
 
     @Test
-    public void should_get_successful_message_when_return_book_success(){
+    public void should_get_successful_message_when_return_book_success() {
         String bookName = "ASP.NET MVC";
         String returnBookMessage = bibliotecaCore.returnBook(bookName);
         assertEquals(returnBookMessage, "Thank you for returning the book");
     }
 
     @Test
-    public void should_get_failed_message_when_return_book_fail(){
+    public void should_get_failed_message_when_return_book_fail() {
         String bookName = "ASP.NET";
         String returnBookMessage = bibliotecaCore.returnBook(bookName);
         assertEquals(returnBookMessage, "That is not a valid book to return");

@@ -64,10 +64,10 @@ public class BibliotecaCore {
             findBook.get().setCheckout(false);
             return "Thank you for returning the book";
         }
-        return null;
+        return "That is not a valid book to return";
     }
 
-    public boolean isExist(String bookName){
+    public boolean isExist(String bookName) {
         return bookList.stream().anyMatch(book -> book.getName().equals(bookName) && !book.isCheckout());
     }
 }
