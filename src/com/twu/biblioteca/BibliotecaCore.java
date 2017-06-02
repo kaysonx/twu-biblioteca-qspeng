@@ -54,6 +54,6 @@ public class BibliotecaCore {
             bookList = bookList.stream().filter(book -> !book.getName().equals(bookName)).collect(Collectors.<Book>toList());
             return "Thank you! Enjoy the book";
         }
-        return null;
+        return "That book is not available";
     }
 }
