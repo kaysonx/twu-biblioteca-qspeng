@@ -12,12 +12,10 @@ public class BibliotecaCore {
 
     public BibliotecaCore() {
         bookList = new ArrayList<Book>();
-        bookList.add(new Book());
-        bookList.add(new Book());
-        bookList.add(new Book());
-        bookList.add(new Book());
-        bookList.add(new Book());
-        bookList.add(new Book());
+        bookList.add(new Book("jlan,jiang","2014.08","ASP.NET MVC"));
+        bookList.add(new Book("Keith,J","2011.04","JavaScript DOM"));
+        bookList.add(new Book("dbo,lin","2013.12"," HTML5+CSS3"));
+        bookList.add(new Book("qsepng","2017.06","testBook"));
     }
 
     public String getWelcomeMessage() {

@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Book {
     private String Author;
-    private Date Published;
+    private String Published;
     private String Name;
 
     public String getAuthor() {
@@ -15,11 +15,11 @@ public class Book {
         Author = author;
     }
 
-    public Date getPublished() {
+    public String getPublished() {
         return Published;
     }
 
-    public void setPublished(Date published) {
+    public void setPublished(String published) {
         Published = published;
     }
 
@@ -28,6 +28,12 @@ public class Book {
     }
 
     public void setName(String name) {
+        Name = name;
+    }
+
+    public Book(String author, String published, String name) {
+        Author = author;
+        Published = published;
         Name = name;
     }
 }
