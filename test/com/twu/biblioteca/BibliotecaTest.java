@@ -3,6 +3,7 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.model.Book;
 import com.twu.biblioteca.model.Movie;
+import com.twu.biblioteca.model.User;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -114,9 +115,9 @@ public class BibliotecaTest {
 
     @Test
     public void should_login(){
-        String userNumer = "123-4567";
+        String userNumber = "123-4567";
         String userPwd = "pwd";
-        boolean loginResult = bibliotecaCore.login(userNumer, userPwd);
+        boolean loginResult = bibliotecaCore.login(userNumber, userPwd);
         assertTrue(loginResult);
     }
 
@@ -129,8 +130,10 @@ public class BibliotecaTest {
 
     @Test
     public void should_get_user_info_when_logged(){
-        String userName = "123-4567";
-        String userInfo = bibliotecaCore.getUserInfo(userName);
-        assertNotNull(userInfo);
+        String userNumber = "123-4567";
+        String userPwd = "pwd";
+        bibliotecaCore.login(userNumber, userPwd);
+        User user = bibliotecaCore.getLoginUserInfo();
+        assertNotNull(user);
     }
 }

@@ -45,6 +45,8 @@ public class BibliotecaCore {
         mainMenu.add("List Books");
         mainMenu.add("Checkout Book");
         mainMenu.add("Return Book");
+        mainMenu.add("List Movies");
+        mainMenu.add("My Info");
         mainMenu.add("Quit");
 
         state = State.MAIN;
@@ -172,7 +174,8 @@ public class BibliotecaCore {
         return true;
     }
 
-    public String getUserInfo(String userName) {
-        return null;
+
+    public User getLoginUserInfo() {
+        return currentUser;
     }
 }
