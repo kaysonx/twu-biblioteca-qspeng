@@ -13,6 +13,10 @@ public class Movie {
         return isCheckout;
     }
 
+    public void setCheckout(boolean checkout) {
+        isCheckout = checkout;
+    }
+
     @Override
     public String toString() {
         return "Movie{" +

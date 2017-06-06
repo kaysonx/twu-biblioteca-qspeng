@@ -138,8 +138,14 @@ public class BibliotecaCore {
         return movieList.stream().filter(movie -> !movie.isCheckout()).collect(Collectors.toList());
     }
 
-    public void checkoutMovie(String movieName) {
-
+    public String checkoutMovie(String movieName) {
+        Optional<Movie> findMovie = movieList.stream().filter(movie -> movie.getName().equals(movieName)).findFirst();
+        if (findMovie.isPresent()) {
+            findMovie.get().setCheckout(true);
+            state = State.MAIN;
+            return "Thank you! Enjoy the movie";
+        }
+        return "That movie is not available";
     }
 
     public boolean isExistMovie(String movieName) {
