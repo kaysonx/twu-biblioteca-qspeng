@@ -84,13 +84,13 @@ public class BibliotecaCore {
                 return "Please input the movie name to checkout:";
             case "5":
                 this.state = State.LOGIN;
-                return "Please input the library number,user password to login:";
+                return "Please input the library number,user password(like xxx-xxxx,xxx) to login:";
             case "6":
                 this.state = State.QUIT;
                 return "bye";
             case "7":
                 this.state = State.MAIN;
-                return "your info: " + currentUser.toString();
+                return "your info: " + currentUser.toString() + getFormatTheMenu();
             default:
                 this.state = State.MAIN;
                 return "Select a valid option!";
@@ -105,20 +105,19 @@ public class BibliotecaCore {
             }
             return checkoutMessage;
         }
-        if(state == State.LOGIN){
+        if (state == State.LOGIN) {
             String userNumber = userInput.split(",")[0];
             String userPwd = userInput.split(",")[1];
-            if(login(userNumber, userPwd)){
+            if (login(userNumber, userPwd)) {
                 state = State.MAIN;
-                this.mainMenu.add("My Info");
-                return "login successful!";
+                return "login successful!" + lineSeparator + getFormatTheMenu();
             }
             return "login failed!";
         }
         if (state == State.CHECKOUTMOVIE) {
             if (currentUser == null) {
                 state = State.MAIN;
-                return "please login!";
+                return "please login!" + lineSeparator + getFormatTheMenu();
             }
             String checkoutMessage = checkoutMovie(userInput);
             if (state == State.MAIN) {
@@ -205,9 +204,9 @@ public class BibliotecaCore {
             return false;
         }
         this.currentUser = loginUser.get();
+        this.mainMenu.add("My Info");
         return true;
     }
-
 
     public User getLoginUserInfo() {
         return currentUser;

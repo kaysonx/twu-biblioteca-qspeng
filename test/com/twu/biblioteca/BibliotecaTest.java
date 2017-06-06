@@ -114,7 +114,7 @@ public class BibliotecaTest {
     }
 
     @Test
-    public void should_login(){
+    public void should_login() {
         String userNumber = "123-4567";
         String userPwd = "pwd";
         boolean loginResult = bibliotecaCore.login(userNumber, userPwd);
@@ -132,7 +132,7 @@ public class BibliotecaTest {
     }
 
     @Test
-    public void should_get_user_info_when_logged(){
+    public void should_get_user_info_when_logged() {
         String userNumber = "123-4567";
         String userPwd = "pwd";
         bibliotecaCore.login(userNumber, userPwd);

@@ -17,7 +17,6 @@ public class User {
                 ", email:'" + email + '\'' +
                 ", address:'" + address + '\'' +
                 ", phoneNumber:'" + phoneNumber + '\'' +
-                ", libraryNumber:'" + libraryNumber + '\'' +
                 ']';
     }
 
