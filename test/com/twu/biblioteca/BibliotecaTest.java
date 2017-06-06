@@ -123,6 +123,9 @@ public class BibliotecaTest {
 
     @Test
     public void should_have_get_user_info_option_when_logged() {
+        String userNumber = "123-4567";
+        String userPwd = "pwd";
+        bibliotecaCore.login(userNumber, userPwd);
         List<String> menuItems = bibliotecaCore.getMenu();
         assertNotNull(menuItems);
         assertTrue(menuItems.contains("My Info"));

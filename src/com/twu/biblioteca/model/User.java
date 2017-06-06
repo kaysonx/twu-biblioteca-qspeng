@@ -10,6 +10,17 @@ public class User {
     private String libraryNumber;
     private String password;
 
+    @Override
+    public String toString() {
+        return "[" +
+                "name:'" + name + '\'' +
+                ", email:'" + email + '\'' +
+                ", address:'" + address + '\'' +
+                ", phoneNumber:'" + phoneNumber + '\'' +
+                ", libraryNumber:'" + libraryNumber + '\'' +
+                ']';
+    }
+
     public String getName() {
         return name;
     }

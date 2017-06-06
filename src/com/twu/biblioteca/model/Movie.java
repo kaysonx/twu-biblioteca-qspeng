@@ -19,12 +19,12 @@ public class Movie {
 
     @Override
     public String toString() {
-        return "Movie{" +
-                "name='" + name + '\'' +
-                ", year='" + year + '\'' +
-                ", director='" + director + '\'' +
-                ", rate='" + rate + '\'' +
-                '}';
+        return "Movie[" +
+                "name:'" + name + '\'' +
+                ", year:'" + year + '\'' +
+                ", director:'" + director + '\'' +
+                ", rate:'" + rate + '\'' +
+                ']';
     }
 
     public Movie(String name, String year, String director, String rate) {

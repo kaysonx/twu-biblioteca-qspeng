@@ -30,15 +30,15 @@ public class BibliotecaCore {
         bookList.add(new Book("qsepng", "2017.06", "testBook"));
 
         movieList = new ArrayList<>();
-        movieList.add(new Movie("One","2010","Warner Bros","6"));
-        movieList.add(new Movie("Two","2011","20th Century Fox","7"));
-        movieList.add(new Movie("Three","2012","Universal   ","9"));
-        movieList.add(new Movie("Four","2017","Walt Disney","10"));
+        movieList.add(new Movie("One", "2010", "Warner Bros", "6"));
+        movieList.add(new Movie("Two", "2011", "20th Century Fox", "7"));
+        movieList.add(new Movie("Three", "2012", "Universal   ", "9"));
+        movieList.add(new Movie("Four", "2017", "Walt Disney", "10"));
 
         userList = new ArrayList<>();
-        userList.add(new User("qspeng","123-4567","pwd"));
-        userList.add(new User("test","123-4568","4567"));
-        userList.add(new User("admin","123-4569","123"));
+        userList.add(new User("qspeng", "123-4567", "pwd"));
+        userList.add(new User("test", "123-4568", "4567"));
+        userList.add(new User("admin", "123-4569", "123"));
 
 
         mainMenu = new ArrayList<>();
@@ -46,7 +46,8 @@ public class BibliotecaCore {
         mainMenu.add("Checkout Book");
         mainMenu.add("Return Book");
         mainMenu.add("List Movies");
-        mainMenu.add("My Info");
+        mainMenu.add("Checkout Movies");
+        mainMenu.add("Login");
         mainMenu.add("Quit");
 
         state = State.MAIN;
@@ -70,14 +71,26 @@ public class BibliotecaCore {
                 this.state = State.LISTBOOK;
                 return getFormatListBooks() + lineSeparator + getFormatTheMenu();
             case "1":
-                this.state = State.CHECKOUT;
+                this.state = State.CHECKOUTBOOK;
                 return "Please input the book name to checkout:";
             case "2":
-                this.state = State.RETURN;
+                this.state = State.RETURNBOOK;
                 return "Please input the book name to return:";
             case "3":
+                this.state = State.LISTMOVIE;
+                return getFormatListMovies() + lineSeparator + getFormatTheMenu();
+            case "4":
+                this.state = State.CHECKOUTMOVIE;
+                return "Please input the movie name to checkout:";
+            case "5":
+                this.state = State.LOGIN;
+                return "Please input the library number,user password to login:";
+            case "6":
                 this.state = State.QUIT;
                 return "bye";
+            case "7":
+                this.state = State.MAIN;
+                return "your info: " + currentUser.toString();
             default:
                 this.state = State.MAIN;
                 return "Select a valid option!";
@@ -85,14 +98,35 @@ public class BibliotecaCore {
     }
 
     public String handleUserInput(String userInput) {
-        if (state == State.CHECKOUT) {
+        if (state == State.CHECKOUTBOOK) {
             String checkoutMessage = checkout(userInput);
             if (state == State.MAIN) {
                 checkoutMessage = checkoutMessage + lineSeparator + getFormatTheMenu();
             }
             return checkoutMessage;
         }
-        if (state == State.RETURN) {
+        if(state == State.LOGIN){
+            String userNumber = userInput.split(",")[0];
+            String userPwd = userInput.split(",")[1];
+            if(login(userNumber, userPwd)){
+                state = State.MAIN;
+                this.mainMenu.add("My Info");
+                return "login successful!";
+            }
+            return "login failed!";
+        }
+        if (state == State.CHECKOUTMOVIE) {
+            if (currentUser == null) {
+                state = State.MAIN;
+                return "please login!";
+            }
+            String checkoutMessage = checkoutMovie(userInput);
+            if (state == State.MAIN) {
+                checkoutMessage = checkoutMessage + lineSeparator + getFormatTheMenu();
+            }
+            return checkoutMessage;
+        }
+        if (state == State.RETURNBOOK) {
             String returnBookMessage = returnBook(userInput);
             if (state == State.MAIN) {
                 returnBookMessage = returnBookMessage + lineSeparator + getFormatTheMenu();
@@ -164,10 +198,10 @@ public class BibliotecaCore {
 
     public boolean login(String userNumber, String userPwd) {
         Optional<User> loginUser = userList.stream().filter(user -> user.getLibraryNumber().equals(userNumber)).findFirst();
-        if(!loginUser.isPresent()){
+        if (!loginUser.isPresent()) {
             return false;
         }
-        if(!loginUser.get().getPassword().equals(userPwd)){
+        if (!loginUser.get().getPassword().equals(userPwd)) {
             return false;
         }
         this.currentUser = loginUser.get();
@@ -177,5 +211,10 @@ public class BibliotecaCore {
 
     public User getLoginUserInfo() {
         return currentUser;
+    }
+
+    public String getFormatListMovies() {
+        List<Movie> movieList = getListMovies();
+        return movieList.stream().map(movie -> movie.toString()).collect(Collectors.joining(lineSeparator));
     }
 }
