@@ -60,21 +60,21 @@ public class BibliotecaTest {
     @Test
     public void should_checkout() {
         String bookName = "ASP.NET MVC";
-        bibliotecaCore.checkout(bookName);
-        assertFalse(bibliotecaCore.isExist(bookName));
+        bibliotecaCore.checkoutBook(bookName);
+        assertFalse(bibliotecaCore.isExistBook(bookName));
     }
 
     @Test
     public void should_get_checkout_success_message() {
         String bookName = "ASP.NET MVC";
-        String checkoutMessage = bibliotecaCore.checkout(bookName);
+        String checkoutMessage = bibliotecaCore.checkoutBook(bookName);
         assertEquals(checkoutMessage, "Thank you! Enjoy the book");
     }
 
     @Test
     public void should_get_checkout_failed_message() {
         String bookName = "Error Book";
-        String checkoutMessage = bibliotecaCore.checkout(bookName);
+        String checkoutMessage = bibliotecaCore.checkoutBook(bookName);
         assertEquals(checkoutMessage, "That book is not available");
     }
 
@@ -82,7 +82,7 @@ public class BibliotecaTest {
     public void should_return_book() {
         String bookName = "ASP.NET MVC";
         bibliotecaCore.returnBook(bookName);
-        assertTrue(bibliotecaCore.isExist(bookName));
+        assertTrue(bibliotecaCore.isExistBook(bookName));
     }
 
     @Test

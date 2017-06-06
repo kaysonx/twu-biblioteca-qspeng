@@ -15,6 +15,7 @@ public class BibliotecaCore {
     private List<Movie> movieList;
     private List<User> userList;
     private User currentUser = null;
+    private Map<String, String> HINTINFO;
 
     public State getState() {
         return state;
@@ -51,10 +52,33 @@ public class BibliotecaCore {
         mainMenu.add("Quit");
 
         state = State.MAIN;
+        HINTINFO = new HashMap<>();
+        HINTINFO.put("WELCOME","Welcome to the Bibliteca!");
+        HINTINFO.put("OPTION_NOTE","Please enter your option:");
+
+        HINTINFO.put("CHECKOUT_BOOK_NOTE","Please input the book name to checkoutBook:");
+        HINTINFO.put("CHECKOUT_BOOK_SUCCESS","Thank you! Enjoy the book");
+        HINTINFO.put("CHECKOUT_BOOK_FAILED","That book is not available");
+
+        HINTINFO.put("RETURN_BOOK_NOTE","Please input the book name to return:");
+        HINTINFO.put("RETURN_BOOK_SUCCESS","Thank you for returning the book");
+        HINTINFO.put("RETURN_BOOK_FAILED","That is not a valid book to return");
+
+        HINTINFO.put("CHECKOUT_MOVIE_NOTE","Please input the movie name to checkoutBook:");
+        HINTINFO.put("CHECKOUT_MOVIE_SUCCESS", "Thank you! Enjoy the movie");
+        HINTINFO.put("CHECKOUT_MOVIE_FAILED","That movie is not available");
+
+        HINTINFO.put("LOGIN_NOTE","Please input the library number,user password(like xxx-xxxx,xxx) to login:");
+        HINTINFO.put("LOGIN_SUCCESS","login successful!");
+        HINTINFO.put("LOGIN_FAILED","login failed!");
+
+        HINTINFO.put("INVALID_OPTION_NOTE","Select a valid option!");
+        HINTINFO.put("QUIT_NOTE","bye");
+
     }
 
     public String getWelcomeMessage() {
-        return "Welcome to the Bibliteca!";
+        return HINTINFO.get("WELCOME");
     }
 
     public List<Book> getListBooks() {
@@ -72,77 +96,93 @@ public class BibliotecaCore {
                 return getFormatListBooks() + lineSeparator + getFormatTheMenu();
             case "1":
                 this.state = State.CHECKOUTBOOK;
-                return "Please input the book name to checkout:";
+                return HINTINFO.get("CHECKOUT_BOOK_NOTE");
             case "2":
                 this.state = State.RETURNBOOK;
-                return "Please input the book name to return:";
+                return HINTINFO.get("RETURN_BOOK_NOTE");
             case "3":
                 this.state = State.LISTMOVIE;
                 return getFormatListMovies() + lineSeparator + getFormatTheMenu();
             case "4":
                 this.state = State.CHECKOUTMOVIE;
-                return "Please input the movie name to checkout:";
+                return HINTINFO.get("CHECKOUT_MOVIE_NOTE");
             case "5":
                 this.state = State.LOGIN;
-                return "Please input the library number,user password(like xxx-xxxx,xxx) to login:";
+                return HINTINFO.get("LOGIN_NOTE");
             case "6":
                 this.state = State.QUIT;
-                return "bye";
+                return HINTINFO.get("QUIT_NOTE");
             case "7":
                 this.state = State.MAIN;
-                return "your info: " + currentUser.toString() + getFormatTheMenu();
+                return currentUser.toString() + getFormatTheMenu();
             default:
                 this.state = State.MAIN;
-                return "Select a valid option!";
+                return HINTINFO.get("INVALID_OPTION_NOTE");
         }
     }
 
     public String handleUserInput(String userInput) {
         if (state == State.CHECKOUTBOOK) {
-            String checkoutMessage = checkout(userInput);
-            if (state == State.MAIN) {
-                checkoutMessage = checkoutMessage + lineSeparator + getFormatTheMenu();
-            }
-            return checkoutMessage;
+            return checkoutBookService(userInput);
         }
         if (state == State.LOGIN) {
-            String userNumber = userInput.split(",")[0];
-            String userPwd = userInput.split(",")[1];
-            if (login(userNumber, userPwd)) {
-                state = State.MAIN;
-                return "login successful!" + lineSeparator + getFormatTheMenu();
-            }
-            return "login failed!";
+            return loginService(userInput);
         }
         if (state == State.CHECKOUTMOVIE) {
-            if (currentUser == null) {
-                state = State.MAIN;
-                return "please login!" + lineSeparator + getFormatTheMenu();
-            }
-            String checkoutMessage = checkoutMovie(userInput);
-            if (state == State.MAIN) {
-                checkoutMessage = checkoutMessage + lineSeparator + getFormatTheMenu();
-            }
-            return checkoutMessage;
+            return checkoutMovieService(userInput);
         }
         if (state == State.RETURNBOOK) {
-            String returnBookMessage = returnBook(userInput);
-            if (state == State.MAIN) {
-                returnBookMessage = returnBookMessage + lineSeparator + getFormatTheMenu();
-            }
-            return returnBookMessage;
+            return returnBookService(userInput);
         }
         return order(userInput);
     }
 
-    public String checkout(final String bookName) {
+    private String returnBookService(String userInput) {
+        String returnBookMessage = returnBook(userInput);
+        if (state == State.MAIN) {
+            returnBookMessage = returnBookMessage + lineSeparator + getFormatTheMenu();
+        }
+        return returnBookMessage;
+    }
+
+    private String checkoutMovieService(String userInput) {
+        if (currentUser == null) {
+            state = State.MAIN;
+            return "please login!" + lineSeparator + getFormatTheMenu();
+        }
+        String checkoutMessage = checkoutMovie(userInput);
+        if (state == State.MAIN) {
+            checkoutMessage = checkoutMessage + lineSeparator + getFormatTheMenu();
+        }
+        return checkoutMessage;
+    }
+
+    private String loginService(String userInput) {
+        String userNumber = userInput.split(",")[0];
+        String userPwd = userInput.split(",")[1];
+        if (login(userNumber, userPwd)) {
+            state = State.MAIN;
+            return HINTINFO.get("LOGIN_SUCCESS") + lineSeparator + getFormatTheMenu();
+        }
+        return HINTINFO.get("LOGIN_FAILED");
+    }
+
+    private String checkoutBookService(String userInput) {
+        String checkoutMessage = checkoutBook(userInput);
+        if (state == State.MAIN) {
+            checkoutMessage = checkoutMessage + lineSeparator + getFormatTheMenu();
+        }
+        return checkoutMessage;
+    }
+
+    public String checkoutBook(final String bookName) {
         Optional<Book> findBook = bookList.stream().filter(book -> book.getName().equals(bookName)).findFirst();
         if (findBook.isPresent()) {
             findBook.get().setCheckout(true);
             state = State.MAIN;
-            return "Thank you! Enjoy the book";
+            return HINTINFO.get("CHECKOUT_BOOK_SUCCESS");
         }
-        return "That book is not available";
+        return HINTINFO.get("CHECKOUT_BOOK_FAILED");
     }
 
     public String returnBook(String bookName) {
@@ -150,12 +190,12 @@ public class BibliotecaCore {
         if (findBook.isPresent()) {
             findBook.get().setCheckout(false);
             state = State.MAIN;
-            return "Thank you for returning the book";
+            return HINTINFO.get("RETURN_BOOK_SUCCESS");
         }
-        return "That is not a valid book to return";
+        return HINTINFO.get("RETURN_BOOK_FAILED");
     }
 
-    public boolean isExist(String bookName) {
+    public boolean isExistBook(String bookName) {
         return bookList.stream().anyMatch(book -> book.getName().equals(bookName) && !book.isCheckout());
     }
 
@@ -174,7 +214,7 @@ public class BibliotecaCore {
     }
 
     public String run() {
-        return getWelcomeMessage() + lineSeparator + getFormatTheMenu();
+        return getWelcomeMessage() + lineSeparator + getFormatTheMenu() + HINTINFO.get("OPTION_NOTE");
     }
 
     public List<Movie> getListMovies() {
@@ -186,9 +226,9 @@ public class BibliotecaCore {
         if (findMovie.isPresent()) {
             findMovie.get().setCheckout(true);
             state = State.MAIN;
-            return "Thank you! Enjoy the movie";
+            return HINTINFO.get("CHECKOUT_MOVIE_SUCCESS");
         }
-        return "That movie is not available";
+        return HINTINFO.get("CHECKOUT_MOVIE_FAILED");
     }
 
     public boolean isExistMovie(String movieName) {
