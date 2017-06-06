@@ -97,4 +97,39 @@ public class BibliotecaTest {
         assertEquals(returnBookMessage, "That is not a valid book to return");
     }
 
+    @Test
+    public void should_get_list_movies() {
+        List<Book> bookList = bibliotecaCore.getListMovies();
+        assertNotNull(bookList);
+        assertTrue(bookList.size() > 0);
+    }
+
+    @Test
+    public void should_checkout_movie() {
+        String movieName = "One";
+        bibliotecaCore.checkoutMovie(movieName);
+        assertFalse(bibliotecaCore.isExistMovie(movieName));
+    }
+
+    @Test
+    public void should_login(){
+        String userName = "123-4567";
+        String userPwd = "pwd";
+        boolean loginResult = bibliotecaCore.login(userName, userPwd);
+        assertTrue(loginResult);
+    }
+
+    @Test
+    public void should_have_get_user_info_option_when_logged() {
+        List<String> menuItems = bibliotecaCore.getMenu();
+        assertNotNull(menuItems);
+        assertTrue(menuItems.contains("My Info"));
+    }
+
+    @Test
+    public void should_get_user_info_when_logged(){
+        String userName = "123-4567";
+        String userInfo = bibliotecaCore.getUserInfo(userName);
+        assertNotNull(userInfo);
+    }
 }

@@ -18,7 +18,7 @@ public class BibliotecaCore {
     private State state;
 
     public BibliotecaCore() {
-        bookList = new ArrayList<Book>();
+        bookList = new ArrayList<>();
         bookList.add(new Book("jlan,jiang", "2014.08", "ASP.NET MVC"));
         bookList.add(new Book("Keith,J", "2011.04", "JavaScript DOM"));
         bookList.add(new Book("dbo,lin", "2013.12", "HTML5+CSS3"));
@@ -123,5 +123,25 @@ public class BibliotecaCore {
 
     public String run() {
         return getWelcomeMessage() + lineSeparator + getFormatTheMenu();
+    }
+
+    public List<Book> getListMovies() {
+        return null;
+    }
+
+    public void checkoutMovie(String movieName) {
+
+    }
+
+    public boolean isExistMovie(String movieName) {
+        return true;
+    }
+
+    public boolean login(String userName, String userPwd) {
+        return false;
+    }
+
+    public String getUserInfo(String userName) {
+        return null;
     }
 }
