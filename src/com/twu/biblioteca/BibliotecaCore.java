@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.model.Book;
+import com.twu.biblioteca.model.Movie;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -10,6 +11,7 @@ public class BibliotecaCore {
     public static final String lineSeparator = new Properties(System.getProperties()).getProperty("line.separator");
     private List<Book> bookList;
     private List<String> mainMenu;
+    private List<Movie> movieList;
 
     public State getState() {
         return state;
@@ -24,7 +26,14 @@ public class BibliotecaCore {
         bookList.add(new Book("dbo,lin", "2013.12", "HTML5+CSS3"));
         bookList.add(new Book("qsepng", "2017.06", "testBook"));
 
-        mainMenu = new ArrayList<String>();
+        movieList = new ArrayList<>();
+        movieList.add(new Movie("One","2010","Warner Bros","6"));
+        movieList.add(new Movie("Two","2011","20th Century Fox","7"));
+        movieList.add(new Movie("Three","2012","Universal   ","9"));
+        movieList.add(new Movie("Four","2017","Walt Disney","10"));
+
+
+        mainMenu = new ArrayList<>();
         mainMenu.add("List Books");
         mainMenu.add("Checkout Book");
         mainMenu.add("Return Book");
@@ -125,8 +134,8 @@ public class BibliotecaCore {
         return getWelcomeMessage() + lineSeparator + getFormatTheMenu();
     }
 
-    public List<Book> getListMovies() {
-        return null;
+    public List<Movie> getListMovies() {
+        return movieList.stream().filter(movie -> !movie.isCheckout()).collect(Collectors.toList());
     }
 
     public void checkoutMovie(String movieName) {
@@ -134,7 +143,7 @@ public class BibliotecaCore {
     }
 
     public boolean isExistMovie(String movieName) {
-        return true;
+        return movieList.stream().anyMatch(movie -> movie.getName().equals(movieName) && !movie.isCheckout());
     }
 
     public boolean login(String userName, String userPwd) {

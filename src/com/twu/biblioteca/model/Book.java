@@ -1,7 +1,5 @@
 package com.twu.biblioteca.model;
 
-import java.util.Date;
-
 public class Book {
     private String Author;
     private String Published;

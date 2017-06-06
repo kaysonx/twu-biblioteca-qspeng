@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 
 import com.twu.biblioteca.model.Book;
+import com.twu.biblioteca.model.Movie;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -99,9 +100,9 @@ public class BibliotecaTest {
 
     @Test
     public void should_get_list_movies() {
-        List<Book> bookList = bibliotecaCore.getListMovies();
-        assertNotNull(bookList);
-        assertTrue(bookList.size() > 0);
+        List<Movie> movieList = bibliotecaCore.getListMovies();
+        assertNotNull(movieList);
+        assertTrue(movieList.size() > 0);
     }
 
     @Test
