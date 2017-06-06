@@ -24,34 +24,16 @@ public class BibliotecaCore {
     private State state;
 
     public BibliotecaCore() {
-        bookList = new ArrayList<>();
-        bookList.add(new Book("jlan,jiang", "2014.08", "ASP.NET MVC"));
-        bookList.add(new Book("Keith,J", "2011.04", "JavaScript DOM"));
-        bookList.add(new Book("dbo,lin", "2013.12", "HTML5+CSS3"));
-        bookList.add(new Book("qsepng", "2017.06", "testBook"));
-
-        movieList = new ArrayList<>();
-        movieList.add(new Movie("One", "2010", "Warner Bros", "6"));
-        movieList.add(new Movie("Two", "2011", "20th Century Fox", "7"));
-        movieList.add(new Movie("Three", "2012", "Universal   ", "9"));
-        movieList.add(new Movie("Four", "2017", "Walt Disney", "10"));
-
-        userList = new ArrayList<>();
-        userList.add(new User("qspeng", "123-4567", "pwd"));
-        userList.add(new User("test", "123-4568", "4567"));
-        userList.add(new User("admin", "123-4569", "123"));
-
-
-        mainMenu = new ArrayList<>();
-        mainMenu.add("List Books");
-        mainMenu.add("Checkout Book");
-        mainMenu.add("Return Book");
-        mainMenu.add("List Movies");
-        mainMenu.add("Checkout Movies");
-        mainMenu.add("Login");
-        mainMenu.add("Quit");
-
+        initBook();
+        initMovie();
+        initUser();
+        initMenu();
+        initHintInfo();
         state = State.MAIN;
+
+    }
+
+    private void initHintInfo() {
         HINTINFO = new HashMap<>();
         HINTINFO.put("WELCOME","Welcome to the Bibliteca!");
         HINTINFO.put("OPTION_NOTE","Please enter your option:");
@@ -74,7 +56,40 @@ public class BibliotecaCore {
 
         HINTINFO.put("INVALID_OPTION_NOTE","Select a valid option!");
         HINTINFO.put("QUIT_NOTE","bye");
+    }
 
+    private void initMenu() {
+        mainMenu = new ArrayList<>();
+        mainMenu.add("List Books");
+        mainMenu.add("Checkout Book");
+        mainMenu.add("Return Book");
+        mainMenu.add("List Movies");
+        mainMenu.add("Checkout Movies");
+        mainMenu.add("Login");
+        mainMenu.add("Quit");
+    }
+
+    private void initUser() {
+        userList = new ArrayList<>();
+        userList.add(new User("qspeng", "123-4567", "pwd"));
+        userList.add(new User("test", "123-4568", "4567"));
+        userList.add(new User("admin", "123-4569", "123"));
+    }
+
+    private void initMovie() {
+        movieList = new ArrayList<>();
+        movieList.add(new Movie("One", "2010", "Warner Bros", "6"));
+        movieList.add(new Movie("Two", "2011", "20th Century Fox", "7"));
+        movieList.add(new Movie("Three", "2012", "Universal   ", "9"));
+        movieList.add(new Movie("Four", "2017", "Walt Disney", "10"));
+    }
+
+    private void initBook() {
+        bookList = new ArrayList<>();
+        bookList.add(new Book("jlan,jiang", "2014.08", "ASP.NET MVC"));
+        bookList.add(new Book("Keith,J", "2011.04", "JavaScript DOM"));
+        bookList.add(new Book("dbo,lin", "2013.12", "HTML5+CSS3"));
+        bookList.add(new Book("qsepng", "2017.06", "testBook"));
     }
 
     public String getWelcomeMessage() {
