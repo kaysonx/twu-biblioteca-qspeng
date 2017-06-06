@@ -114,9 +114,9 @@ public class BibliotecaTest {
 
     @Test
     public void should_login(){
-        String userName = "123-4567";
+        String userNumer = "123-4567";
         String userPwd = "pwd";
-        boolean loginResult = bibliotecaCore.login(userName, userPwd);
+        boolean loginResult = bibliotecaCore.login(userNumer, userPwd);
         assertTrue(loginResult);
     }
 

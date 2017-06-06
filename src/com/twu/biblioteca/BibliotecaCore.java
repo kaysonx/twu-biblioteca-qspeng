@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.model.Book;
 import com.twu.biblioteca.model.Movie;
+import com.twu.biblioteca.model.User;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -12,6 +13,8 @@ public class BibliotecaCore {
     private List<Book> bookList;
     private List<String> mainMenu;
     private List<Movie> movieList;
+    private List<User> userList;
+    private User currentUser = null;
 
     public State getState() {
         return state;
@@ -31,6 +34,11 @@ public class BibliotecaCore {
         movieList.add(new Movie("Two","2011","20th Century Fox","7"));
         movieList.add(new Movie("Three","2012","Universal   ","9"));
         movieList.add(new Movie("Four","2017","Walt Disney","10"));
+
+        userList = new ArrayList<>();
+        userList.add(new User("qspeng","123-4567","pwd"));
+        userList.add(new User("test","123-4568","4567"));
+        userList.add(new User("admin","123-4569","123"));
 
 
         mainMenu = new ArrayList<>();
@@ -152,8 +160,16 @@ public class BibliotecaCore {
         return movieList.stream().anyMatch(movie -> movie.getName().equals(movieName) && !movie.isCheckout());
     }
 
-    public boolean login(String userName, String userPwd) {
-        return false;
+    public boolean login(String userNumber, String userPwd) {
+        Optional<User> loginUser = userList.stream().filter(user -> user.getLibraryNumber().equals(userNumber)).findFirst();
+        if(!loginUser.isPresent()){
+            return false;
+        }
+        if(!loginUser.get().getPassword().equals(userPwd)){
+            return false;
+        }
+        this.currentUser = loginUser.get();
+        return true;
     }
 
     public String getUserInfo(String userName) {
